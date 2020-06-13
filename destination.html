@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Antic+Didone&family=Montserrat:ital,wght@0,300;0,400;0,700;1,300;1,700&family=Roboto&display=swap" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <!-- Font-Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <title>Rapidapi | Destination</title>
+</head>
+<body>
+    <!-- Modal -->
+    <div class="modal fade" id="email-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Package info e-mail</h5>
+              <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="modal-body-email">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                    </div>
+                    <input id="email-input" type="text" class="form-control" placeholder="E-Mail" aria-label="e-mail">
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button id="email-send-btn" type="button" class="btn btn-outline-primary" data-dismiss="modal">SUBMIT</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="origin-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Origin Airports</h5>
+              <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="modal-body-origin">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="modal">close</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="destination-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Destination Airports</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-body-destination">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="modal">close</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-top: 24px;" class="container">
+        <form>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <label><i class="fas fa-map-marker-alt"></i> <strong>Origin</strong></label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button id="origin-search" class="btn btn-primary" data-toggle="modal" data-target="#origin-modal"><i class="fas fa-search"></i></button>
+                        </div>
+                        <input id="origin" type="text" class="form-control" placeholder="Type your origin...">
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <label><i class="fas fa-map-marker-alt"></i> <strong>Destination</strong></label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button id="destination-search" class="btn btn-primary" data-toggle="modal" data-target="#destination-modal"><i class="fas fa-search"></i></button>
+                        </div>
+                        <input id="destination" type="text" class="form-control" placeholder="Type your destiny...">
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <label><strong>Departure</strong></label>
+                    <input id="departure" type="date" class="form-control">
+                </div>
+                <div class="col-lg-2 col-md-6 col-sm-12">
+                    <label><i class="far fa-user"></i> <strong>Guest</strong></label>
+                    <input id="guests-number" type="number" class="form-control" min="1" value="1" placeholder="Guest">
+                </div>
+                <div class="col-lg-2 col-md-6 col-sm-12">
+                    <button id="search-btn" style="margin-top: 32px;" type="submit" class="btn btn-primary btn-block"><i class="fas fa-search"></i> SEARCH</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="booking-list" style="margin-top: 24px;" class="container">
+    </div>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    
+    <!-- Font-Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+    <script src="./js/date.js"></script>
+    <script src="./js/views/destination.js"></script>
+    <script>
+        var emailSendBtn = document.getElementById('email-send-btn');
+        var emailInput = document.getElementById('email-input');
+        var originSearch = document.getElementById('origin-search');
+        var destinationSearch = document.getElementById('destination-search');
+        var guestsNumber = document.getElementById('guests-number');
+        var origin = document.getElementById('origin');
+        var destination = document.getElementById('destination');
+        var departure = document.getElementById('departure');
+        var modalBodyOrigin = document.getElementById('modal-body-origin');
+        var modalBodyDestination = document.getElementById('modal-body-destination');
+        var searchBtn = document.getElementById('search-btn');
+        var bookingList = document.getElementById('booking-list');
+
+        var datePicked = getCheckinDate();
+        var checkOutDatePicked = getCheckoutDate(datePicked);
+
+        var values = [];
+
+        var originAirport = '';
+        var destinationAirport = '';
+        var priceHotel = '';
+
+        var urlParams = new URLSearchParams(window.location.search);
+
+        guestsNumber.value = urlParams.get('adults');
+        destination.value = urlParams.get('dest');
+        departure.value = urlParams.get('checkin');
+        departure.max = urlParams.get('checkin');
+        priceHotel = urlParams.get('price');
+
+        emailSendBtn.addEventListener('click', event => {
+            postEmail(emailInput.value, values[0], values[2], values[1], guestsNumber.value, values[3]);
+        });
+
+        bookingList.addEventListener('click', event => {
+            let element = event.target;
+            
+            if (element.tagName === 'path') {
+              element = element.parentElement;
+            }
+
+            if (element.tagName === 'svg') {
+              element = element.parentElement;
+            }
+
+            if (element.classList.contains('email-sender')) {
+                element = element.parentElement.parentElement;
+
+                const elements = element.getElementsByClassName('info-wrapper');
+
+                for(let i = 0; i < elements.length; i++) {
+                    values[i] = elements[i].children[1].innerHTML;
+                }
+            }
+        });
+
+        originSearch.addEventListener('click', event => {
+            event.preventDefault();
+
+            getDepartureSchedule(origin.value);
+        });
+
+        destinationSearch.addEventListener('click', event => {
+            event.preventDefault();
+
+            getArrivalSchedule(destination.value);
+        });
+
+        modalBodyOrigin.addEventListener('click', event => {
+            let element = event.target;
+            
+            if (element.tagName === 'path') {
+              element = element.parentElement;
+            }
+
+            if (element.tagName === 'svg') {
+              element = element.parentElement;
+            }
+
+            if (element.classList.contains('btn-origin-choice')) {
+                element = element.parentElement;
+
+                origin.value = element.querySelector('p').innerHTML;
+
+                originAirport = origin.value.split(' (')[1].split(')')[0];
+            }
+        });
+
+        modalBodyDestination.addEventListener('click', event => {
+            let element = event.target;
+            
+            if (element.tagName === 'path') {
+              element = element.parentElement;
+            }
+
+            if (element.tagName === 'svg') {
+              element = element.parentElement;
+            }
+
+            if (element.classList.contains('btn-destination-choice')) {
+                element = element.parentElement;
+
+                destination.value = element.querySelector('p').innerHTML;
+                
+                destinationAirport = destination.value.split(' (')[1].split(')')[0];
+            }
+        });
+
+        searchBtn.addEventListener('click', event => {
+            event.preventDefault();
+
+            getBookings(destinationAirport, originAirport, departure.value, guestsNumber.value, formatDefault(departure.value), priceHotel);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Antic+Didone&family=Montserrat:ital,wght@0,300;0,400;0,700;1,300;1,700&family=Roboto&display=swap" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <!-- Font-Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <title>Rapidapi Hotel | Info</title>
+</head>
+<body>
+    <div style="height: 100vh;" class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-md-8" style="height: 100vh; padding: 0;">
+                <div style="height: 100vh;" id="map"></div>
+            </div>
+            <div id="reviews" class="col-sm-12 col-md-4" style="height: 100vh; overflow-y: scroll;">
+                
+            </div>
+        </div>
+    </div>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    
+    <!-- Font-Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+    <script src="js/views/view-more.js"></script>
+    <script>
+        var map;
+        var marker;
+
+        var urlParams = new URLSearchParams(window.location.search);
+        
+        var lat = parseFloat(urlParams.get('lat'));
+        var lng = parseFloat(urlParams.get('lng'));
+        var location_id = urlParams.get('location_id');
+
+        get(location_id);
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat , lng},
+                zoom: 14
+            });
+
+            marker = new google.maps.Marker({
+                position: {lat , lng},
+                map: map,
+            });
+
+            marker.setMap(map);
+        };
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAXG9YVpHYd1aZ0O5oCJ-x5dMnwSHBCI4&callback=initMap"
+    async defer></script>
+</body>
+</html>
