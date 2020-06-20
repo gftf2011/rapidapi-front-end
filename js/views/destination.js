@@ -79,7 +79,7 @@ const getBookings = (d1, o1, dd1, ta, date, price) => {
     .then(res => {
         var elements = '';
 
-        if (!res.data) {
+        if (!res.itineraries) {
             elements = `<div class="alert alert-info alert-dismissible fade show" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
