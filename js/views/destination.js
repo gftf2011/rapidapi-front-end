@@ -63,6 +63,7 @@ const getBookings = (d1, o1, dd1, ta, date, price) => {
     var backgroundLoader = document.getElementById('background-loader');
     var bookingList = document.getElementById('booking-list');
 
+    window.scrollTo(0,0);
     backgroundLoader.style.display = "flex";
     body.style.overflowY = "hidden";
 
