@@ -60,6 +60,7 @@ const getArrivalSchedule = (location) => {
 
 const getBookings = (d1, o1, dd1, ta, date, price) => {
     var body = document.getElementById('body');
+    var alertArea = document.getElementById('alert-area');
     var backgroundLoader = document.getElementById('background-loader');
     var bookingList = document.getElementById('booking-list');
 
@@ -77,6 +78,22 @@ const getBookings = (d1, o1, dd1, ta, date, price) => {
     .then(response => response.json())
     .then(res => {
         var elements = '';
+
+        if (!res.data) {
+            elements = `<div class="alert alert-info alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Pacotes não encontrados!</strong> Tente de novo mais tarde!.
+            </div>`;
+
+            alertArea.innerHTML = elements;
+
+            backgroundLoader.style.display = "none";
+            body.style.overflowY = "auto";
+            
+            return;
+        }
         
         res.itineraries.forEach(e => {
             elements = elements +
@@ -151,6 +168,18 @@ const getBookings = (d1, o1, dd1, ta, date, price) => {
 
         backgroundLoader.style.display = "none";
         body.style.overflowY = "auto";
+    }).catch(err => {
+        alertArea.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Ocorreu um erro!</strong> Tente de novo mais tarde!.
+        </div>`;
+
+        backgroundLoader.style.display = "none";
+        body.style.overflowY = "auto";
+        
+        return;
     });
 }
 

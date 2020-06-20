@@ -1,5 +1,6 @@
 const get = (checkin, adults, nights, location) => {
     var body = document.getElementById('body');
+    var alertArea = document.getElementById('alert-area');
     var backgroundLoader = document.getElementById('background-loader');
     var bookingList = document.getElementById('booking-list');
 
@@ -21,6 +22,22 @@ const get = (checkin, adults, nights, location) => {
     .then(response => response.json())
     .then(res => {
         var elements = '';
+
+        if (!res.data) {
+            elements = `<div class="alert alert-info alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Hoteis não encontrados!</strong> Não encontramos hotéis com as especificações acima!.
+            </div>`;
+
+            alertArea.innerHTML = elements;
+
+            backgroundLoader.style.display = "none";
+            body.style.overflowY = "auto";
+            
+            return;
+        }
 
         res.data.forEach(e => {
             var [simplePackage ,deluxePackage] = JSON.stringify(e.price).split(' - ');
@@ -61,5 +78,17 @@ const get = (checkin, adults, nights, location) => {
 
         backgroundLoader.style.display = "none";
         body.style.overflowY = "auto";
-    });
+    }).catch(err => {
+        alertArea.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Ocorreu um erro!</strong> Tente de novo mais tarde!.
+        </div>`;
+
+        backgroundLoader.style.display = "none";
+        body.style.overflowY = "auto";
+        
+        return;
+    });;
 };
