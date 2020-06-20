@@ -1,5 +1,8 @@
 const get = (checkin, adults, nights, location) => {
+    var backgroundLoader = document.getElementById('background-loader');
     var bookingList = document.getElementById('booking-list');
+
+    backgroundLoader.style.display = "flex";
 
     if (!location) {
         location = 'Los Angeles';
@@ -44,13 +47,15 @@ const get = (checkin, adults, nights, location) => {
                         `<p><i class="fas fa-sun"></i> &nbsp;&nbsp;<i>Days:</i> ${nights}</p>` +
                     `</span>` +
                     `<span class="d-flex flex-row justify-content-around align-items-center">` + 
-                        `<a href="./destination.html?dest=Los Angeles&checkin=${checkin}&nights=${nights}&adults=${adults}&price=${simplePackage}" style="opacity: .75;" class="btn btn-outline-primary"><i class="fas fa-book"></i> SIMPLE $ ${simplePackage}</a>` +
-                        `<a href="./destination.html?dest=Los Angeles&checkin=${checkin}&nights=${nights}&adults=${adults}&price=${deluxePackage}" style="opacity: .75;" class="btn btn-outline-primary"><i class="fas fa-gem"></i> DELUXE $ ${deluxePackage}</a>` +
+                        `<a href="./destination.html?dest=${location}&checkin=${checkin}&nights=${nights}&adults=${adults}&price=${simplePackage}" style="opacity: .75;" class="btn btn-outline-primary"><i class="fas fa-book"></i> SIMPLE $ ${simplePackage}</a>` +
+                        `<a href="./destination.html?dest=${location}&checkin=${checkin}&nights=${nights}&adults=${adults}&price=${deluxePackage}" style="opacity: .75;" class="btn btn-outline-primary"><i class="fas fa-gem"></i> DELUXE $ ${deluxePackage}</a>` +
                     `</span>` +
                 `</div>` +
             `</div>`;
         });
 
         bookingList.innerHTML = elements;
+
+        backgroundLoader.style.display = "none";
     });
 };

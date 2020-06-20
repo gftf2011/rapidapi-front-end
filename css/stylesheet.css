@@ -1,3 +1,15 @@
+#background-loader {
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    z-index: 10;
+    background-color: rgba(0,0,0,.5);
+}
+
 p {
     font-family: 'Montserrat', sans-serif;
 }
