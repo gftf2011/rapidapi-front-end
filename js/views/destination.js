@@ -59,10 +59,12 @@ const getArrivalSchedule = (location) => {
 };
 
 const getBookings = (d1, o1, dd1, ta, date, price) => {
+    var body = document.getElementById('body');
     var backgroundLoader = document.getElementById('background-loader');
     var bookingList = document.getElementById('booking-list');
 
     backgroundLoader.style.display = "flex";
+    body.style.overflowY = "hidden";
 
     var header = {
         method: 'GET',
@@ -145,7 +147,9 @@ const getBookings = (d1, o1, dd1, ta, date, price) => {
         });
 
         bookingList.innerHTML = elements;
+
         backgroundLoader.style.display = "none";
+        body.style.overflowY = "auto";
     });
 }
 

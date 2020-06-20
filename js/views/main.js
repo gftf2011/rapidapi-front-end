@@ -1,8 +1,10 @@
 const get = (checkin, adults, nights, location) => {
+    var body = document.getElementById('body');
     var backgroundLoader = document.getElementById('background-loader');
     var bookingList = document.getElementById('booking-list');
 
     backgroundLoader.style.display = "flex";
+    body.style.overflowY = "hidden";
 
     if (!location) {
         location = 'Los Angeles';
@@ -57,5 +59,6 @@ const get = (checkin, adults, nights, location) => {
         bookingList.innerHTML = elements;
 
         backgroundLoader.style.display = "none";
+        body.style.overflowY = "auto";
     });
 };
